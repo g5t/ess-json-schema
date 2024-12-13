@@ -1,14 +1,18 @@
 from ess_json_schema.validate import validate_json
 from jsonschema.exceptions import ValidationError
-from datetime import datetime, UTC
+
 from pytest import raises
 
 URI = 'https://ess.eu/efu/caen/calibration/detector'
 
+def date_string():
+    from datetime import datetime
+    return datetime.now().isoformat()
+
 
 def test_efu_caen_calibration_detector_validation():
     data = {
-        'date': datetime.now(UTC).isoformat(),
+        'date': date_string(),
         'groups': 2,
         'info': 'Some information for you',
         'instrument': 'INSTRUMENT',
@@ -34,7 +38,7 @@ def test_efu_caen_calibration_detector_validation():
 
 def test_efu_caen_calibration_detector_fails_on_repeated_groups():
     data = {
-        'date': datetime.now(UTC).isoformat(),
+        'date': date_string(),
         'groups': 2,
         'info': 'Some information for you',
         'instrument': 'INSTRUMENT',
@@ -62,7 +66,7 @@ def test_efu_caen_calibration_detector_fails_on_repeated_groups():
 
 def test_efu_caen_calibration_detector_fails_without_group_count():
     data = {
-        'date': datetime.now(UTC).isoformat(),
+        'date': date_string(),
         'groups': 0,
         'info': 'Some information for you',
         'instrument': 'INSTRUMENT',
@@ -77,7 +81,7 @@ def test_efu_caen_calibration_detector_fails_without_group_count():
 
 def test_efu_caen_calibration_detector_fails_without_groups():
     data = {
-        'date': datetime.now(UTC).isoformat(),
+        'date': date_string(),
         'groups': 110,
         'info': 'Some information for you',
         'instrument': 'INSTRUMENT',

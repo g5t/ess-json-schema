@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ess.eu/efu/caen/calibration",
+  "type": "object",
+  "title": "CAEN detector calibration",
+  "description": "The detector calibration information needed by the EFU for CAEN based detectors",
+  "properties": {
+    "date": {
+      "type": "string", "format": "date-time",
+      "examples": ["2024-12-09T10:12:17Z", "2026-06-05T09:13Z"],
+      "description": "A calibration reference time in UTC"
+    },
+    "groups": {
+      "type": "integer", "minimum": 1,
+      "description": "The number of detector groups"
+    },
+    "info": {
+      "type": "string",
+      "description": "A descriptive string to identify the calibration"
+    },
+    "instrument": {
+      "type": "string",
+      "examples": ["bifrost", "cspec"],
+      "description": "The name of the instrument this calibration applies to"
+    },
+    "units": {
+      "type": "integer", "minimum": 1,
+      "description": "The number of detector units per detector group"
+    },
+    "version": {
+      "type": "integer", "minimum": 0,
+      "description": "An integer version number for this format specification"
+    },
+    "parameters": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "contains": {
+        "type": "object",
+        "description": "A group of one or more detector units",
+        "properties": {
+        "groupindex": {
+          "type": "integer", "minimum": 0,
+          "description": "A detector-unique index identifying this group"
+        },
+        "intervals": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "description": "Per unit limits on global charge division: unit_x = (x - interval[unit][0]) / (interval[unit][1] - interval[unit][0])",
+          "contains": {
+          "type":  "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "contains":  {"type": "number", "minimum": 0, "maximum": 1}
+          }
+        },
+        "polynomials": {
+          "type": "array",
+          "minItems": 1,
+          "description": "Per unit local x correction polynomial coefficients",
+          "contains": {
+          "type":  "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "contains":  {"type": "number"}
+          }
+        },
+        "thresholds": {
+          "type": "array",
+          "minItems": 1,
+          "description": "Per unit limits on total pulse-height ADC value(s)",
+          "contains": {
+          "type":  "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "contains":  {"type": "integer", "minimum": 0}
+          }
+        }
+        },
+        "required": ["groupindex", "intervals", "polynomials", "thresholds"]
+      }
+    }
+  },
+  "additionalProperties": false,
+  "required": ["version", "instrument", "date", "groups", "units"]
+}

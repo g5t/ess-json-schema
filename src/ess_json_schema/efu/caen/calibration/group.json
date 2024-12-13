@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ess.eu/efu/caen/calibration/group",
+  "type": "object",
+  "title": "CAEN Detector group",
+  "description": "A group of one or more detector units",
+  "properties": {
+    "groupindex": {
+        "type": "integer", "minimum": 0,
+        "description": "A detector-unique index identifying this group"
+    },
+    "intervals": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "description": "Per unit limits on global charge division: unit_x = (x - interval[unit][0]) / (interval[unit][1] - interval[unit][0])",
+      "contains": {
+        "type":  "array",
+        "minItems": 2,
+        "maxItems": 2,
+        "contains":  {"type": "number", "minimum": 0, "maximum": 1}
+      }
+    },
+    "polynomials": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Per unit local x correction polynomial coefficients",
+      "contains": {
+        "type":  "array",
+        "minItems": 4,
+        "maxItems": 4,
+        "contains":  {"type": "number"}
+      }
+    },
+    "thresholds": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Per unit limits on total pulse-height ADC value(s)",
+      "contains": {
+        "type":  "array",
+        "minItems": 2,
+        "maxItems": 2,
+        "contains":  {"type": "integer", "minimum": 0}
+      }
+    }
+  },
+  "required": ["groupindex", "intervals", "polynomials", "thresholds"]
+}

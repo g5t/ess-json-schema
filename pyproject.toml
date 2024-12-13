@@ -1,0 +1,50 @@
+[build-system]
+requires = [
+    "setuptools>=45",
+    "setuptools_scm[toml]>=6.2",
+
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ess-json-schema"
+dependencies = [
+    'jsonschema',
+    'typer',
+    'confuse>=2.0.1',
+    'loguru>=0.7.2',
+]
+description = "JSON Schema for the European Spallation Source Event"
+readme = "README.md"
+license = {text = "BSD-3-Clause"}
+requires-python = ">=3.9"
+authors = [
+    { name = "Gregory Tucker", email = "gregory.tucker@ess.eu" },
+]
+classifiers = [
+    "License :: OSI Approved :: BSD License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+dynamic = ["version"]
+
+[project.optional-dependencies]
+test = ['pytest']
+
+[project.urls]
+"Homepage" = "https://github.com/ess-dmsc/ess-json-schema"
+
+[project.scripts]
+validate = "ess_json_schema.commands:validate_cli"
+
+[tool.setuptools_scm]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["ess_json_schema*"]
+

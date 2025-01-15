@@ -66,4 +66,4 @@ def test_efu_caen_calibration_group_throws_on_disallowed_types():
         validate_json(repeated_intervals,
                       uri='https://ess.eu/efu/caen/calibration/group')
 
-    assert "does not contain items" in str(ex.value)
+    assert "is not of type 'integer'" in str(ex.value)

@@ -31,18 +31,7 @@
         "maxItems": 4,
         "contains":  {"type": "number"}
       }
-    },
-    "thresholds": {
-      "type": "array",
-      "minItems": 1,
-      "description": "Per unit limits on total pulse-height ADC value(s)",
-      "contains": {
-        "type":  "array",
-        "minItems": 2,
-        "maxItems": 2,
-        "contains":  {"type": "integer", "minimum": 0}
-      }
     }
   },
-  "required": ["groupindex", "intervals", "polynomials", "thresholds"]
+  "required": ["groupindex", "intervals", "polynomials"]
 }

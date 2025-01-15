@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft/2020-12/schema#",
+  "$id": "https://ess.eu/efu/caen/configuration/detector",
+  "title": "CAEN detector configuration",
+  "description": "The detector configuration information needed by the EFU for CAEN based detectors",
+  "type": "object",
+  "properties": {
+    "Detector": {
+      "enum":  ["loki", "bifrost", "tbl3he", "miracles", "cspec"],
+      "description": "The name of the instrument or detector"
+    },
+    "MaxRing": {
+      "type": "integer", "minimum": 0,
+      "description": "The number of rings, or the maximum ring value if not contiguous"
+    },
+    "StrawResolution": {
+      "type": "integer", "minimum": 1,
+      "description": "The number of discrete pixels into which the charge-division axis is subdivided"
+    },
+    "MaxGroup": {
+      "type": "integer", "minimum": 1,
+      "description": "The number of charge-division groups within the detector"
+    },
+    "MaxAmpl": {
+      "type": "integer", "minimum": 1,
+      "examples": [32767, 65535],
+      "description": "Total charge-division amplitudes exceeding this value are discarded. Likely the single-channel ADC maximum output value"
+    }
+  },
+  "required": [
+    "Detector",
+    "MaxRing",
+    "StrawResolution",
+    "MaxGroup",
+    "MaxAmpl"
+  ]
+}

@@ -9,15 +9,20 @@ def get_file_json(filename: Path):
     return data
 
 
-def validate_json(filename: Path):
+def validate_uri(filename: Path, uri: str):
     from loguru import logger
-    from .validate import validate_json
+    from .validate import validate_json as vj
     data = get_file_json(filename)
-    if '$schema' not in data:
-        logger.error(f'data does not contain a top-level "$schema" entry')
-        return
-    validate_json(data['data'], uri=data['$schema'])
-    logger.info(f"Validation successful: {filename} against {data['$schema']}")
+    if '$schema' in data and 'data' in data:
+        uri = data['$schema']
+        data = data['data']
+    elif uri is not None and len(data) == 1:
+        data = data[next(iter(data))]
+    else:
+        raise ValueError('Either a valid in-JSON $schema field or a specified URI is required.')
+
+    vj(data, uri=uri)
+    logger.info(f"Validation successful: {filename} against {uri}")
 
 
 def validate_schema(filename: Path):
@@ -29,15 +34,15 @@ def validate_schema(filename: Path):
     logger.info(f"Validation successful: {filename} against {schema}")
 
 
-def validate(filename: Path, schema: bool=False):
+def validate(filename: Path, uri: str=None, schema: bool=False):
     if schema:
         validate_schema(filename)
     else:
-        validate_json(filename)
-
+        validate_uri(filename, uri)
 
 def validate_cli():
     typer.run(validate)
+
 
 if __name__ == '__main__':
     typer.run(validate)

@@ -39,3 +39,15 @@ You can use this from a command line interface in the same environment
 ```cmd
 $ validate /path/to/the_file_to_validate.json
 ```
+
+### Schema-less JSON validation
+If you have a JSON file which should conform to a _known_ JSON schema, but which
+does not include the special `$schema` entry, you can specify its `uri` in the
+call to the validation entrypoint, e.g.,
+```cmd
+$ validate /path/to/event-formation-unit/src/modules/bifrost/configs/bifrostnullcalib.json --uri https://ess.eu/efu/caen/calibration/detector
+```
+
+Note that this variant *does not* validate the main `data` entry name, but instead
+expects that the JSON root contains one key which then contains the equivalent of
+the `data` entry.

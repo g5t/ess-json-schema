@@ -16,9 +16,9 @@ def test_efu_caen_calibration_detector_validation():
         'groups': 2,
         'info': 'Some information for you',
         'instrument': 'INSTRUMENT',
-        'units': 1,
+        'groupsize': 1,
         'version': 0,
-        'parameters': [
+        'Parameters': [
             {
                 'groupindex': 0,
                 'intervals': [[0, 0.9]],
@@ -42,9 +42,9 @@ def test_efu_caen_calibration_detector_fails_on_repeated_groups():
         'groups': 2,
         'info': 'Some information for you',
         'instrument': 'INSTRUMENT',
-        'units': 1,
+        'grroupsize': 1,
         'version': 0,
-        'parameters': [
+        'Parameters': [
             {
                 'groupindex': 0,
                 'intervals': [[0, 0.9]],
@@ -70,9 +70,9 @@ def test_efu_caen_calibration_detector_fails_without_group_count():
         'groups': 0,
         'info': 'Some information for you',
         'instrument': 'INSTRUMENT',
-        'units': 1,
+        'groupsize': 1,
         'version': 0,
-        'parameters': []
+        'Parameters': []
     }
     with raises(ValidationError) as ex:
         validate_json(data, uri=URI)
@@ -85,9 +85,9 @@ def test_efu_caen_calibration_detector_fails_without_groups():
         'groups': 110,
         'info': 'Some information for you',
         'instrument': 'INSTRUMENT',
-        'units': 1,
+        'groupsize': 1,
         'version': 0,
-        'parameters': []
+        'Parameters': []
     }
     with raises(ValidationError) as ex:
         validate_json(data, uri=URI)

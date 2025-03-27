@@ -23,7 +23,7 @@
             "examples": ["bifrost", "cspec"],
             "description": "The name of the instrument this calibration applies to"
         },
-        "units": {
+        "groupsize": {
             "type": "integer", "minimum": 1,
             "description": "The number of detector units per detector group"
         },
@@ -31,7 +31,7 @@
             "type": "integer", "minimum": 0,
             "description": "An integer version number for this format specification"
         },
-        "parameters": {
+        "Parameters": {
             "type": "array",
             "minItems": 1,
             "uniqueItems": true,
@@ -39,5 +39,5 @@
         }
     },
     "additionalProperties": false,
-    "required": ["version", "instrument", "date", "groups", "units"]
+    "required": ["version", "instrument", "date", "groups", "groupsize"]
 }
